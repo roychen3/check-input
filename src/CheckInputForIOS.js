@@ -7,7 +7,6 @@ const re = new RegExp(
 
 const CheckInputForIOS = () => {
   const [value, setValue] = useState('');
-  const [isKedown, setIsKedown] = useState(false);
   const [keyDownKey, setKeyDownKey] = useState('');
   const [isComposing, setIsComposing] = useState(false);
 
@@ -17,20 +16,10 @@ const CheckInputForIOS = () => {
     } else {
       setValue((prevValue) => {
         if (
-          isKedown &&
-          (keyDownKey.match(re) || event.target.value.match(re))
+          (keyDownKey.match(re) || event.target.value.match(re)) &&
+          prevValue.length - 1 === event.target.value.length
         ) {
-          if (prevValue.length - 1 === event.target.value.length) {
-            return prevValue;
-          }
-
-          if (keyDownKey.match(re) && event.target.value.match(re)) {
-            const filteredValue = event.target.value.replaceAll(re, '');
-            return filteredValue;
-          }
-
-          const filteredValue = event.target.value.replaceAll(re, '');
-          return filteredValue;
+          return prevValue;
         } else {
           const filteredValue = event.target.value.replaceAll(re, '');
           return filteredValue;
@@ -40,11 +29,7 @@ const CheckInputForIOS = () => {
   };
 
   const handleKeyDown = (event) => {
-    setIsKedown(true);
     setKeyDownKey(event.key);
-  };
-  const handleKeyUp = () => {
-    setIsKedown(false);
   };
 
   const handleCompositionStart = () => {
@@ -64,7 +49,6 @@ const CheckInputForIOS = () => {
         value={value}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        onKeyUp={handleKeyUp}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
       />
