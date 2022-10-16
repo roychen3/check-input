@@ -7,7 +7,7 @@ const re = new RegExp(
 
 const CheckInputForIOS = () => {
   const [value, setValue] = useState('');
-  const [keyDownKey, setKeyDownKey] = useState('');
+  const [isPrevValueMatch, setIsPrevValueMatch] = useState(false);
   const [isComposing, setIsComposing] = useState(false);
 
   const handleChange = (event) => {
@@ -16,7 +16,8 @@ const CheckInputForIOS = () => {
     } else {
       setValue((prevValue) => {
         if (
-          (keyDownKey.match(re) || event.target.value.match(re)) &&
+          isPrevValueMatch &&
+          !event.target.value.match(re) &&
           prevValue.length - 1 === event.target.value.length
         ) {
           return prevValue;
@@ -26,10 +27,7 @@ const CheckInputForIOS = () => {
         }
       });
     }
-  };
-
-  const handleKeyDown = (event) => {
-    setKeyDownKey(event.key);
+    setIsPrevValueMatch(!!event.target.value.match(re));
   };
 
   const handleCompositionStart = () => {
@@ -48,7 +46,6 @@ const CheckInputForIOS = () => {
         type="text"
         value={value}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
         onCompositionStart={handleCompositionStart}
         onCompositionEnd={handleCompositionEnd}
       />
