@@ -15,14 +15,21 @@ const CheckInputForIOS = () => {
   const [value, setValue] = useState('');
 
   const handleKeyDown = (event) => {
+    console.log('handleKeyDown');
     setKeyDownKey(event.key);
   };
 
+  const handleKeyUp = (event) => {
+    console.log('handleKeyUp');
+  };
+
   const handlePaste = () => {
+    console.log('handlePaste');
     setIsPaste(true);
   };
 
   const handleBeforeInput = (event) => {
+    console.log('handleBeforeInput');
     if (
       !isPaste &&
       !isComposing &&
@@ -33,9 +40,11 @@ const CheckInputForIOS = () => {
   };
 
   const handleCompositionStart = () => {
+    console.log('handleCompositionStart');
     setIsComposing(true);
   };
   const handleCompositionEnd = (event) => {
+    console.log('handleCompositionEnd');
     const filteredValue = event.data.replaceAll(re, '');
     const newSelectionStart =
       event.target.selectionStart - (event.data.length - filteredValue.length);
@@ -45,6 +54,7 @@ const CheckInputForIOS = () => {
   };
 
   const handleChange = (event) => {
+    console.log('handleChange');
     if (isComposing) {
       setSelectionStart(-1);
       setValue(event.target.value);
@@ -84,6 +94,7 @@ const CheckInputForIOS = () => {
         type="text"
         value={value}
         onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
         onPaste={handlePaste}
         onBeforeInput={handleBeforeInput}
         onCompositionStart={handleCompositionStart}
