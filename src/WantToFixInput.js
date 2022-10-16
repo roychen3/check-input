@@ -27,7 +27,7 @@ const WantToFixInput = () => {
   };
 
   return (
-    <>
+    <div>
       <h1>Want To Fix Check Input Text</h1>
       <input
         type="text"
@@ -52,7 +52,7 @@ const WantToFixInput = () => {
           {idx + 1} {value}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

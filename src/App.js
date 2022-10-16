@@ -7,7 +7,7 @@ import CheckInputForIOS from './CheckInputForIOS';
 const App = () => {
   return (
     <>
-      <WantToFixInput />
+      {/* <WantToFixInput /> */}
       <CheckInputForIOS />
       {/* <CheckInputForDesktop /> */}
     </>
