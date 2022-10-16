@@ -16,7 +16,7 @@ const CheckInputForIOS = () => {
     } else {
       setValue((prevValue) => {
         if (
-          (keyDownKey.match(re) || event.target.value.match(re)) &&
+          keyDownKey.match(re) &&
           prevValue.length - 1 === event.target.value.length
         ) {
           return prevValue;
